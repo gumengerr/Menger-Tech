@@ -3,36 +3,61 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Menger Tech | Agência de Marketing</title>
+<title>Menger Tech | Agência de Marketing em Caçador, SC</title>
+<meta name="description" content="Menger Tech: agência de marketing em Caçador, SC. Redes sociais, tráfego pago, sites, identidade visual e automação para a sua empresa vender mais.">
+<meta name="theme-color" content="#1f2044">
+<meta property="og:title" content="Menger Tech | Agência de Marketing">
+<meta property="og:description" content="A gente cuida do marketing para você cuidar do seu negócio.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%231f2044'/%3E%3Ctext x='50' y='72' font-size='64' font-weight='900' text-anchor='middle' fill='white' font-family='Arial'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
 <div id="blob" aria-hidden="true"></div>
-<header><div class="wrap">
-<a class="logo" href="#inicio">Menger<sup>TECH</sup></a>
-<nav><a href="#servicos">Serviços</a><a href="#metodo">Como trabalhamos</a><a class="btn" href="#contato">Fale conosco</a></nav>
-</div></header>
+<div id="progress" aria-hidden="true"></div>
 
-<main id="inicio">
-<div class="wrap hero">
-<svg class="star" viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--ink)" d="M50 2c6 18 10 22 28 14-8 18-4 22 18 28-18 6-22 10-14 28-18-8-22-4-28 18-6-22-10-26-28-18 8-18 4-22-14-28 18-6 22-10 14-28 18 8 22 4 24-14z"/></svg>
+<header id="top">
+<div class="wrap bar">
+<a class="logo" href="#inicio" aria-label="Menger Tech, início">Menger<sup>TECH</sup></a>
+<nav id="menu" aria-label="Principal">
+<a href="#servicos">Serviços</a>
+<a href="#metodo">Como trabalhamos</a>
+<a href="#contato">Contato</a>
+<a class="btn" href="#contato">Fale conosco</a>
+</nav>
+<div class="tools">
+<button id="theme" class="icon" type="button" aria-label="Alternar tema claro e escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg></button>
+<button id="burger" class="icon" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div>
+</div>
+</header>
+
+<main id="conteudo">
+<div class="wrap hero" id="inicio">
+<svg class="star" viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" d="M50 2c6 18 10 22 28 14-8 18-4 22 18 28-18 6-22 10-14 28-18-8-22-4-28 18-6-22-10-26-28-18 8-18 4-22-14-28 18-6 22-10 14-28 18 8 22 4 24-14z"/></svg>
 <h1 id="logo-h1" aria-label="Menger Tech">Menger<span class="tech" aria-hidden="true">TECH</span></h1>
-<p class="tag">agência de Marketing</p>
+<p class="tag">agência de marketing</p>
 <p class="sub">A gente cuida do marketing para você cuidar do seu negócio.</p>
-<div class="actions"><a class="btn" href="#contato">Quero falar com a Menger</a><a class="btn ghost" href="#servicos">Ver o que fazemos</a></div>
+<div class="actions">
+<a class="btn" href="#contato">Quero falar com a Menger</a>
+<a class="btn ghost" href="#servicos">Ver o que fazemos</a>
+</div>
 </div>
 
 <div class="ticker" aria-hidden="true"><div id="tk"></div></div>
 
 <section id="servicos"><div class="wrap">
 <h2 class="rv">O que a gente faz</h2>
-<div class="rv">
-<div class="svc"><button aria-expanded="false">Redes sociais<span class="plus"></span></button><div class="body"><div><p>Planejamos, criamos e postamos. Você aprova e a gente cuida do resto, sempre com a cara da sua marca.</p></div></div></div>
-<div class="svc"><button aria-expanded="false">Tráfego pago<span class="plus"></span></button><div class="body"><div><p>Anúncios no Google e na Meta, com cada real acompanhado e um relatório que dá para entender.</p></div></div></div>
-<div class="svc"><button aria-expanded="false">Sites e landing pages<span class="plus"></span></button><div class="body"><div><p>Páginas rápidas, leves no celular e pensadas para o visitante virar cliente.</p></div></div></div>
-<div class="svc"><button aria-expanded="false">Identidade visual<span class="plus"></span></button><div class="body"><div><p>Logotipo, cores e estilo. O que faz as pessoas reconhecerem você de longe.</p></div></div></div>
-<div class="svc"><button aria-expanded="false">Automação e atendimento<span class="plus"></span></button><div class="body"><div><p>WhatsApp, e-mail e CRM organizados para ninguém ficar sem resposta.</p></div></div></div>
+<div class="rv list">
+<div class="svc"><button type="button" id="b1" aria-expanded="false" aria-controls="p1">Redes sociais<span class="plus"></span></button><div class="body" id="p1" role="region" aria-labelledby="b1"><div><p>Planejamos, criamos e postamos. Você aprova e a gente cuida do resto, sempre com a cara da sua marca.</p><a class="more" href="#contato" data-svc="Redes sociais">Quero isso</a></div></div></div>
+<div class="svc"><button type="button" id="b2" aria-expanded="false" aria-controls="p2">Tráfego pago<span class="plus"></span></button><div class="body" id="p2" role="region" aria-labelledby="b2"><div><p>Anúncios no Google e na Meta, com cada real acompanhado e um relatório que dá para entender.</p><a class="more" href="#contato" data-svc="Tráfego pago">Quero isso</a></div></div></div>
+<div class="svc"><button type="button" id="b3" aria-expanded="false" aria-controls="p3">Sites e landing pages<span class="plus"></span></button><div class="body" id="p3" role="region" aria-labelledby="b3"><div><p>Páginas rápidas, leves no celular e pensadas para o visitante virar cliente.</p><a class="more" href="#contato" data-svc="Sites e landing pages">Quero isso</a></div></div></div>
+<div class="svc"><button type="button" id="b4" aria-expanded="false" aria-controls="p4">Identidade visual<span class="plus"></span></button><div class="body" id="p4" role="region" aria-labelledby="b4"><div><p>Logotipo, cores e estilo. O que faz as pessoas reconhecerem você de longe.</p><a class="more" href="#contato" data-svc="Identidade visual">Quero isso</a></div></div></div>
+<div class="svc"><button type="button" id="b5" aria-expanded="false" aria-controls="p5">Automação e atendimento<span class="plus"></span></button><div class="body" id="p5" role="region" aria-labelledby="b5"><div><p>WhatsApp, e-mail e CRM organizados para ninguém ficar sem resposta.</p><a class="more" href="#contato" data-svc="Automação e atendimento">Quero isso</a></div></div></div>
 </div>
 </div></section>
 
@@ -51,12 +76,26 @@
 <div class="dot"></div>
 <h2>Bora conversar?</h2>
 <p>Conte rapidinho sobre a sua empresa e a gente volta com uma proposta, sem compromisso.</p>
-<a class="btn" href="https://wa.me/5549999468486" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-<div class="info"><span>MengerTech@gmail.com</span><span>@mengertech</span><span>Caçador, SC</span></div>
+<form id="form" novalidate>
+<div class="f"><label for="nome">Seu nome</label><input id="nome" name="nome" autocomplete="name" required><small class="err" aria-live="polite"></small></div>
+<div class="f"><label for="empresa">Nome da empresa</label><input id="empresa" name="empresa" autocomplete="organization"></div>
+<div class="f"><label for="servico">Do que você precisa?</label>
+<select id="servico" name="servico"><option>Ainda não sei, quero conversar</option><option>Redes sociais</option><option>Tráfego pago</option><option>Sites e landing pages</option><option>Identidade visual</option><option>Automação e atendimento</option></select></div>
+<div class="f full"><label for="msg">Mensagem (opcional)</label><textarea id="msg" name="msg" rows="3"></textarea></div>
+<button class="btn send" type="submit">Enviar pelo WhatsApp</button>
+</form>
+<div class="info">
+<a href="mailto:MengerTech@gmail.com">MengerTech@gmail.com</a>
+<a href="https://instagram.com/mengertech" target="_blank" rel="noopener">@mengertech</a>
+<span>Caçador, SC</span>
+</div>
 </div>
 </div>
 </main>
-<footer><div class="wrap"><span>© 2026 Menger Tech</span><span>agência de Marketing</span></div></footer>
+
+<footer><div class="wrap"><span>© 2026 Menger Tech</span><a href="#inicio">Voltar ao topo</a></div></footer>
+
+<a class="wa" href="https://wa.me/5549999468486?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Menger%20Tech." target="_blank" rel="noopener" aria-label="Chamar no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm-3 5.5c.2 0 .4 0 .6.5l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.1.2-.1.3 0 .5a7 7 0 0 0 3.3 2.9c.2.1.4.1.5-.1l.7-.9c.2-.2.3-.2.5-.1l1.8.9c.2.1.3.2.3.3 0 .4-.2 1-.9 1.5-.6.4-1.4.5-2.3.3-3-.8-5-3.600-5.200-3.900-.2-.3-1.200-1.600-1.200-3s.7-2 1-2.3c.2-.3.4-.3.5-.3z"/></svg></a>
 
 <script src="script.js"></script>
 </body>
