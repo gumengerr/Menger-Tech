@@ -1,72 +1,85 @@
-:root{--navy:#1f2044;--bg:#fff;--ink:#1f2044;--soft:#e9ebfa;--muted:#55587a;--on:#fff;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15162f;--ink:#fff;--soft:#24264f;--muted:#b9bbdc;--navy:#fff;--on:#1f2044}}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.6 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
+:root{--navy:#1f2044;--bg:#fff;--ink:#1f2044;--soft:#e9ebfa;--muted:#55587a;--on:#fff;--line:rgba(31,32,68,.18);color-scheme:light}
+:root[data-theme="dark"]{--bg:#15162f;--ink:#fff;--soft:#24264f;--muted:#b9bbdc;--navy:#fff;--on:#1f2044;--line:rgba(255,255,255,.22);color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.6 "DM Sans",system-ui,sans-serif;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom,0px);transition:background .3s,color .3s}
 h1,h2,h3{font-family:"Bagel Fat One","Arial Rounded MT Bold",system-ui,sans-serif;font-weight:400;margin:0;line-height:1}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:4px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:var(--on);padding:10px 16px;border-radius:999px;z-index:50;font-weight:700}
+.skip:focus{top:calc(env(safe-area-inset-top,0px) + 8px)}
 
-/* blob que segue o mouse */
-#blob{position:fixed;left:0;top:0;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;background:var(--soft);filter:blur(40px);opacity:.9;pointer-events:none;z-index:0;transition:opacity .3s}
+#progress{position:fixed;left:0;top:0;height:4px;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:left;z-index:40}
+#blob{position:fixed;left:0;top:0;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;background:var(--soft);filter:blur(40px);opacity:.9;pointer-events:none;z-index:0}
 
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font:400 26px "Bagel Fat One",system-ui,sans-serif;text-decoration:none;position:relative;display:inline-block}
+header{position:sticky;top:0;z-index:30;padding-top:env(safe-area-inset-top,0px);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:box-shadow .3s}
+header.stuck{box-shadow:0 1px 0 var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font:400 26px "Bagel Fat One",system-ui,sans-serif;text-decoration:none;position:relative;display:inline-block;margin-right:28px}
 .logo sup{font:700 9px "DM Sans",sans-serif;letter-spacing:.08em;position:absolute;top:-4px;right:-26px;transform:rotate(20deg)}
-nav{display:flex;gap:26px;align-items:center}
-nav a{text-decoration:none;font-weight:500;font-size:15px;background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 2px no-repeat;transition:background-size .3s}
-nav a:hover{background-size:100% 2px}
-.btn{display:inline-block;background:var(--navy);color:var(--on);padding:15px 28px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--navy);transition:transform .2s cubic-bezier(.3,1.6,.5,1),background .2s,color .2s;will-change:transform}
-nav a.btn{background-image:none}
-.btn:hover{transform:scale(1.07) rotate(-2deg)}
+nav{display:flex;gap:26px;align-items:center;margin-left:auto}
+nav a{text-decoration:none;font-weight:500;font-size:15px;padding:4px 0;background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 2px no-repeat;transition:background-size .3s}
+nav a:hover,nav a.on{background-size:100% 2px}
+.tools{display:flex;gap:8px;align-items:center}
+.icon{all:unset;box-sizing:border-box;cursor:pointer;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;transition:background .2s}
+.icon:hover{background:var(--soft)}
+.icon:focus-visible{outline:3px solid var(--ink)}
+.icon svg{width:20px;height:20px}
+#burger{display:none;position:relative}
+#burger span{position:absolute;left:12px;right:12px;height:3px;border-radius:2px;background:var(--ink);transition:transform .3s,opacity .2s}
+#burger span:nth-child(1){top:14px}#burger span:nth-child(2){top:20px}#burger span:nth-child(3){top:26px}
+.menu-open #burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-open #burger span:nth-child(2){opacity:0}
+.menu-open #burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+.btn{display:inline-block;background:var(--navy);color:var(--on);padding:15px 28px;border:2px solid var(--navy);border-radius:999px;font:700 17px/1.2 "DM Sans",sans-serif;text-decoration:none;text-align:center;cursor:pointer;transition:transform .2s cubic-bezier(.3,1.6,.5,1),background .2s,color .2s;will-change:transform}
+nav a.btn{background-image:none;font-size:15px;padding:11px 22px}
+.btn:hover{transform:scale(1.06) rotate(-2deg)}
 .btn.ghost{background:none;color:var(--ink)}
 .btn.ghost:hover{background:var(--navy);color:var(--on)}
 
 main{position:relative;z-index:1}
-.hero{padding:72px 0 56px;position:relative}
-.hero h1{font-size:clamp(70px,17vw,200px);position:relative;display:inline-block;white-space:nowrap}
+.hero{padding:64px 24px 48px;position:relative}
+.hero h1{font-size:clamp(64px,17vw,200px);position:relative;display:inline-block;white-space:nowrap}
 .hero h1 .l{display:inline-block;transform-origin:50% 100%;animation:pop .9s cubic-bezier(.3,1.7,.5,1) both;animation-delay:calc(var(--i)*90ms + 200ms);cursor:default}
 .hero h1 .l:hover{animation:jelly .6s}
-.hero h1 .tech{position:absolute;top:1%;right:-5%;font:700 clamp(16px,3vw,30px) "DM Sans",sans-serif;letter-spacing:.06em;transform:rotate(22deg);transform-origin:left;animation:tech 1s 1.2s cubic-bezier(.3,1.6,.5,1) both}
+.hero h1 .tech{position:absolute;top:1%;right:-3%;font:700 clamp(14px,3vw,30px) "DM Sans",sans-serif;letter-spacing:.06em;transform:rotate(22deg);transform-origin:left;animation:tech 1s 1.2s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes pop{0%{transform:translateY(120%) scale(.4,1.5);opacity:0}60%{transform:translateY(-8%) scale(1.1,.9);opacity:1}100%{transform:none;opacity:1}}
 @keyframes jelly{0%,100%{transform:none}30%{transform:scale(1.25,.75)}50%{transform:scale(.85,1.2) translateY(-8%)}70%{transform:scale(1.08,.94)}}
 @keyframes tech{from{opacity:0;transform:rotate(-40deg) scale(.2)}to{opacity:1;transform:rotate(22deg)}}
-.hero .tag{font-style:italic;font-size:clamp(20px,3vw,28px);margin:18px 0 8px;animation:fade .8s 1.4s both}
-.hero .sub{max-width:46ch;color:var(--muted);margin:0 0 30px;animation:fade .8s 1.6s both}
-.hero .actions{display:flex;gap:14px;flex-wrap:wrap;animation:fade .8s 1.8s both}
+.tag{font-style:italic;font-size:clamp(20px,3vw,28px);margin:18px 0 8px;animation:fade .8s 1.4s both}
+.sub{max-width:46ch;color:var(--muted);margin:0 0 30px;animation:fade .8s 1.6s both}
+.actions{display:flex;gap:14px;flex-wrap:wrap;animation:fade .8s 1.8s both}
 @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.star{position:absolute;right:2%;top:40px;width:clamp(70px,14vw,150px);animation:spin 14s linear infinite;opacity:.95}
+.star{position:absolute;right:24px;top:36px;width:clamp(64px,14vw,150px);color:var(--ink);animation:spin 14s linear infinite;pointer-events:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* faixa que corre */
-.ticker{background:var(--navy);color:var(--on);overflow:hidden;transform:rotate(-1.5deg);margin:30px -10px 70px;padding:16px 0;white-space:nowrap}
+.ticker{background:var(--navy);color:var(--on);overflow:hidden;transform:rotate(-1.5deg);margin:30px -10px 60px;padding:16px 0;white-space:nowrap}
 .ticker div{display:inline-block;animation:run 28s linear infinite;font:400 30px "Bagel Fat One",system-ui,sans-serif}
 .ticker:hover div{animation-play-state:paused}
 .ticker i{font-style:normal;margin:0 22px}
 @keyframes run{to{transform:translateX(-50%)}}
 
-section{padding:50px 0 70px}
+section{padding:50px 0 60px}
 h2{font-size:clamp(36px,6vw,64px);margin-bottom:32px;max-width:15ch}
 
-/* serviços: lista que abre */
 .svc{border-top:2px solid var(--ink)}
 .svc:last-child{border-bottom:2px solid var(--ink)}
-.svc button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 8px;font:400 clamp(26px,4.4vw,46px) "Bagel Fat One",system-ui,sans-serif;position:relative;background:linear-gradient(var(--soft),var(--soft)) 0 100%/100% 0 no-repeat;transition:background-size .35s,padding .35s}
-.svc button:hover,.svc.open button{background-size:100% 100%;padding-left:22px}
-.svc button:focus-visible{outline:3px solid var(--ink)}
+.svc button{all:unset;box-sizing:border-box;width:100%;min-height:72px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 8px;font:400 clamp(24px,4.4vw,46px)/1.1 "Bagel Fat One",system-ui,sans-serif;background:linear-gradient(var(--soft),var(--soft)) 0 100%/100% 0 no-repeat;transition:background-size .35s,padding .35s}
+.svc.open button{background-size:100% 100%;padding-left:22px}
+@media(hover:hover){.svc button:hover{background-size:100% 100%;padding-left:22px}}
+.svc button:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
 .plus{flex:none;width:40px;height:40px;border-radius:50%;background:var(--navy);position:relative;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
 .plus::before,.plus::after{content:"";position:absolute;left:11px;right:11px;top:50%;height:3px;margin-top:-1.5px;background:var(--on);border-radius:2px}
 .plus::after{transform:rotate(90deg)}
 .svc.open .plus{transform:rotate(135deg)}
-.svc .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease}
-.svc.open .body{grid-template-rows:1fr}
+.svc .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease;visibility:hidden}
+.svc.open .body{grid-template-rows:1fr;visibility:visible}
 .svc .body>div{overflow:hidden}
-.svc .body p{margin:0;padding:6px 8px 26px 22px;color:var(--muted);max-width:60ch}
+.svc .body p{margin:0;padding:6px 8px 12px 22px;color:var(--muted);max-width:60ch}
+.more{display:inline-block;margin:0 0 26px 22px;font-weight:700;padding:6px 0}
 
-/* método */
 .steps{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;list-style:none;padding:34px 0 0;margin:0}
 .steps::before{content:"";position:absolute;left:0;top:10px;height:6px;width:100%;border-radius:3px;background:var(--ink);transform-origin:left;transform:scaleX(0);transition:transform 1.6s cubic-bezier(.6,0,.2,1)}
 .steps.in::before{transform:scaleX(1)}
@@ -76,20 +89,53 @@ h2{font-size:clamp(36px,6vw,64px);margin-bottom:32px;max-width:15ch}
 .steps b{display:block;font:400 28px "Bagel Fat One",sans-serif;margin-bottom:6px}
 .steps span{color:var(--muted)}
 
-/* contato */
-.cta{background:var(--navy);color:var(--on);padding:60px 40px;margin-bottom:70px;border-radius:60px 60px 60px 12px;position:relative;overflow:hidden}
+.cta{background:var(--navy);color:var(--on);padding:60px 40px;margin-bottom:60px;border-radius:60px 60px 60px 12px;position:relative;overflow:hidden}
 .cta h2{max-width:12ch}
-.cta p{max-width:44ch;margin:0 0 26px;opacity:.88}
+.cta>p{max-width:44ch;margin:0 0 26px;opacity:.9}
+.cta>*{position:relative}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;max-width:720px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f.full,.send{grid-column:1/-1}
+label{font-weight:700;font-size:15px}
+input,select,textarea{width:100%;font:400 17px/1.4 "DM Sans",sans-serif;color:var(--on);background:transparent;border:2px solid color-mix(in srgb,var(--on) 45%,transparent);border-radius:16px;padding:13px 16px;transition:border-color .2s,background .2s}
+select option{color:#1f2044}
+textarea{resize:vertical;min-height:96px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--on);background:color-mix(in srgb,var(--on) 10%,transparent)}
+input[aria-invalid]{border-color:#ffb4a8}
+.err{min-height:0;color:#ffb4a8;font-size:14px;font-weight:500}
+:root[data-theme="dark"] .err,:root[data-theme="dark"] input[aria-invalid]{color:#b3261e;border-color:#b3261e}
 .cta .btn{background:var(--on);color:var(--navy);border-color:var(--on)}
-.cta .info{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:30px;font-weight:500}
-.cta .dot{position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;border-radius:50%;background:var(--on);opacity:.08;animation:float 7s ease-in-out infinite}
+.send{justify-self:start}
+.info{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:30px;font-weight:500}
+.cta .dot{position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;border-radius:50%;background:var(--on);opacity:.08;animation:float 7s ease-in-out infinite;pointer-events:none}
 @keyframes float{50%{transform:translate(-30px,-40px) scale(1.15)}}
-footer{padding:26px 0;color:var(--muted);font-size:14px;position:relative;z-index:1}
+
+footer{padding:26px 0 96px;color:var(--muted);font-size:14px;position:relative;z-index:1}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
-/* entrada ao rolar */
+.wa{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:20;width:58px;height:58px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.wa:hover{transform:scale(1.1) rotate(-6deg)}
+.wa svg{width:30px;height:30px}
+
 .rv{opacity:0;transform:translateY(40px) rotate(1deg);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 
-@media(max-width:720px){nav a:not(.btn){display:none}.cta{padding:44px 24px;border-radius:40px 40px 40px 10px}.star{opacity:.35}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv,.hero h1 .l{opacity:1;transform:none}.steps::before,.steps li::before{transform:none}#blob{display:none}}
+@media(max-width:760px){
+body{font-size:17px}
+.bar{height:60px}
+#burger{display:grid}
+nav{position:fixed;left:0;right:0;top:calc(60px + env(safe-area-inset-top,0px));background:var(--bg);flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 24px;border-bottom:2px solid var(--ink);margin:0;transform:translateY(-12px);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s}
+.menu-open nav{opacity:1;transform:none;visibility:visible}
+nav a{font:400 30px "Bagel Fat One",sans-serif;padding:14px 0;background:none;border-bottom:1px solid var(--line)}
+nav a.btn{font:700 17px "DM Sans",sans-serif;margin-top:18px;padding:16px;border:2px solid var(--navy);border-bottom-width:2px}
+.hero{padding-top:44px}
+.star{opacity:.3;top:24px}
+.actions .btn{flex:1 1 100%}
+.ticker{font-size:0}.ticker div{font-size:24px}
+section{padding:36px 0 44px}
+.cta{padding:40px 22px;border-radius:40px 40px 40px 10px}
+form{grid-template-columns:1fr}
+.send{justify-self:stretch}
+.wa{width:54px;height:54px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}.rv,.hero h1 .l{opacity:1;transform:none}.steps::before,.steps li::before{transform:none}#blob{display:none}}
